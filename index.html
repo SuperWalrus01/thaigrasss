@@ -221,6 +221,29 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.18);
         }
 
+        .btn-whatsapp,
+        .btn-directions {
+            display: inline-block;
+            padding: 0.6rem 1.6rem;
+            border-radius: 999px;
+            background: var(--bg-color);
+            color: var(--text-cream);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-whatsapp:hover,
+        .btn-directions:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+        }
+
         /* Order section */
         .order-steps {
             display: grid;
@@ -639,13 +662,16 @@
             bottom: 2rem;
             left: 2rem;
             width: 320px;
-            max-height: 500px;
+            max-height: 600px; /* Increased from 500px */
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             z-index: 99;
             transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
             border: 2px solid var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Ensure proper layout */
         }
 
         .order-cart.minimized {
@@ -656,6 +682,7 @@
         }
 
         .order-cart.minimized .order-cart-body,
+        .order-cart.minimized .cart-total,
         .order-cart.minimized .order-cart-actions {
             display: none;
         }
@@ -715,8 +742,10 @@
 
         .order-cart-body {
             padding: 1.25rem;
-            max-height: 350px;
+            max-height: 300px; /* Reduced to ensure buttons are visible */
             overflow-y: auto;
+            flex: 1 1 auto; /* Allow it to grow but not push buttons out */
+            min-height: 0; /* Allow flexbox to shrink properly */
         }
 
         .order-cart-note {
@@ -780,12 +809,15 @@
             border-top: 1px solid rgba(0,0,0,0.1);
             display: flex;
             gap: 0.5rem;
+            border-radius: 0 0 14px 14px; /* Match the parent border radius */
+            flex-shrink: 0; /* Prevent from being squeezed out */
+            background: #ffffff; /* Ensure background is visible */
         }
 
         .cart-btn {
             flex: 1;
             padding: 0.6rem 1rem;
-            border-radius: 8px;
+            border-radius: 6px; /* Reduce border radius to fit better */
             font-family: 'Bebas Neue', sans-serif;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -828,6 +860,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0; /* Prevent from being squeezed out */
         }
 
         .cart-total-label {
@@ -1326,12 +1359,14 @@
             
             updateCartDisplay();
             updateTextarea();
+            updateWhatsAppButton();
         }
 
         function removeFromCart(index) {
             cartItems.splice(index, 1);
             updateCartDisplay();
             updateTextarea();
+            updateWhatsAppButton();
         }
 
         function updateTextarea() {
@@ -1376,6 +1411,7 @@
             cartItems = [];
             document.getElementById('cart-note').value = '';
             updateCartDisplay();
+            updateWhatsAppButton();
         }
 
         function copyOrder() {
@@ -1390,6 +1426,28 @@
                     copyBtn.textContent = originalText;
                 }, 2000);
             });
+        }
+
+        // Generate WhatsApp link with order
+        function getWhatsAppLink() {
+            const noteText = document.getElementById('cart-note').value;
+            let message = 'Hi Thai Grass! I\'d like to place an order:\n\n';
+            
+            if (noteText.trim()) {
+                message += noteText;
+            } else {
+                message = 'Hi Thai Grass! I\'d like to place an order';
+            }
+            
+            return 'https://wa.me/447860774483?text=' + encodeURIComponent(message);
+        }
+
+        // Update WhatsApp button when cart changes
+        function updateWhatsAppButton() {
+            const whatsappBtn = document.querySelector('.btn-whatsapp');
+            if (whatsappBtn) {
+                whatsappBtn.href = getWhatsAppLink();
+            }
         }
 
         // Add "Add to Cart" buttons to all menu items
@@ -1412,6 +1470,9 @@
                     item.appendChild(addButton);
                 }
             });
+
+            // Initialize WhatsApp button
+            updateWhatsAppButton();
         });
     </script>
 </body>
