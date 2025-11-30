@@ -454,6 +454,7 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            min-height: 400px;
         }
 
         @media (max-width: 768px) {
@@ -748,6 +749,21 @@
             min-height: 0; /* Allow flexbox to shrink properly */
         }
 
+        .order-cart-name {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            margin-bottom: 0.75rem;
+        }
+
+        .order-cart-name:focus {
+            outline: none;
+            border-color: var(--bg-color);
+        }
+
         .order-cart-note {
             width: 100%;
             min-height: 120px;
@@ -846,6 +862,20 @@
             transform: translateY(-1px);
         }
 
+        .cart-btn-whatsapp {
+            background: var(--bg-color);
+            color: var(--text-cream);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-btn-whatsapp:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
         .cart-empty-state {
             text-align: center;
             padding: 2rem 1rem;
@@ -898,16 +928,198 @@
             opacity: 1; /* Always visible */
         }
 
+        /* Reviews Section */
+        .reviews-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .reviews-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .rating-summary {
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star-icon {
+            font-size: 1.2rem;
+        }
+
+        .rating-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.08em;
+            color: var(--bg-color);
+            font-weight: bold;
+        }
+
+        .rating-count {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .review-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-item {
+            padding: 1rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+            border-left: 3px solid var(--bg-color);
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .review-author {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .google-reviews-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .google-reviews-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Location Photos */
+        .location-photos {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .location-photos-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .location-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .location-photo-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .location-photo-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .location-photo-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Mobile Map Full Screen */
+        .map-wrapper.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .map-wrapper.fullscreen iframe {
+            border-radius: 0;
+        }
+
         @media (max-width: 768px) {
-            .order-cart {
-                left: 1rem;
-                right: auto;
-                bottom: 1rem;
+            .contact-layout {
+                grid-template-columns: 1fr;
             }
 
-            .order-cart:not(.minimized) {
-                width: calc(100% - 2rem);
-                max-width: 320px;
+            .contact-right {
+                order: 2;
+            }
+
+            .map-wrapper {
+                margin-top: 1.5rem;
+                min-height: 300px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .map-wrapper::after {
+                content: '📍 Tap to expand map';
+                position: absolute;
+                bottom: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--bg-color);
+                color: var(--text-cream);
+                padding: 0.5rem 1rem;
+                border-radius: 999px;
+                font-family: 'Bebas Neue', sans-serif;
+                letter-spacing: 0.12em;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                pointer-events: none;
+                opacity: 0.9;
+            }
+
+            .map-wrapper.fullscreen::after {
+                content: '✕ Tap to close';
+            }
+
+            .location-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .location-photo-item img {
+                height: 200px;
             }
         }
     </style>
@@ -1163,23 +1375,23 @@
                     <div class="order-steps order-steps--center">
                         <div class="step">
                             <div class="step-number">1</div>
-                            <h3>Call to Order</h3>
-                            <p>Give us a call on <strong>07860 774483</strong><button class="copy-btn" onclick="copyPhoneNumber(this)" aria-label="Copy phone number">📋 Copy</button> and tell us your name, what you'd like to order, and roughly what time you'd like to pick it up.</p>
+                            <h3>Send Your Order via WhatsApp</h3>
+                            <p>Use the order cart on the left to build your order, add your name, and click <strong>💬 WhatsApp Order</strong> below to send us your complete order including pickup time.</p>
                         </div>
                         <div class="step">
                             <div class="step-number">2</div>
-                            <h3>We Prepare Your Food</h3>
-                            <p>We'll confirm your order over the phone and start cooking so it's hot and ready close to your chosen time.</p>
+                            <h3>Call to Confirm</h3>
+                            <p>After sending your WhatsApp message, give us a quick call on <strong>07860 774483</strong><button class="copy-btn" onclick="copyPhoneNumber(this)" aria-label="Copy phone number">📋 Copy</button> to confirm your order and pickup time.</p>
                         </div>
                         <div class="step">
                             <div class="step-number">3</div>
-                            <h3>Pick Up at Tokyo Express</h3>
-                            <p>Come to <strong>Tokyo Express, Hertford St, Coventry CV1 1FQ</strong>, give us your name, and pick up your order.</p>
+                            <h3>We Prepare Your Food</h3>
+                            <p>Once confirmed, we'll start cooking your order so it's hot and ready for your pickup time.</p>
                         </div>
                         <div class="step">
                             <div class="step-number">4</div>
-                            <h3>Pay & Enjoy</h3>
-                            <p>Pay on collection (card or cash) and enjoy your Thai Grass meal.</p>
+                            <h3>Pick Up & Enjoy</h3>
+                            <p>Come to <strong>Tokyo Express, Hertford St, Coventry CV1 1FQ</strong>, give us your name, pay (card or cash), and enjoy your Thai Grass meal!</p>
                         </div>
                     </div>
                     <div class="prep-time-info">
@@ -1199,38 +1411,81 @@
         <main>
             <section id="contact">
                 <h2>Contact</h2>
-                <div class="section-card contact-layout">
-                    <div class="contact-left">
-                        <div class="contact-card contact-card--simple">
-                            <div class="contact-row">
-                                <div class="contact-label">Located In</div>
-                                <div class="contact-value">Tokyo Express</div>
+                <div class="section-card">
+                    <div class="contact-layout">
+                        <div class="contact-left">
+                            <div class="contact-card contact-card--simple">
+                                <div class="contact-row">
+                                    <div class="contact-label">Located In</div>
+                                    <div class="contact-value">Tokyo Express</div>
+                                </div>
+                                <div class="contact-row">
+                                    <div class="contact-label">Address</div>
+                                    <div class="contact-value address-with-copy">Hertford St, Coventry CV1 1FQ<button class="copy-btn-small" onclick="copyAddress(this)" aria-label="Copy address">📋 Copy</button></div>
+                                </div>
+                                <div class="contact-row">
+                                    <div class="contact-label">Phone</div>
+                                    <div class="contact-value"><a href="tel:07860774483">07860 774483</a></div>
+                                </div>
+                                <div class="contact-row">
+                                    <div class="contact-label">Hours</div>
+                                    <div class="contact-value">11am – 6pm</div>
+                                </div>
                             </div>
-                            <div class="contact-row">
-                                <div class="contact-label">Address</div>
-                                <div class="contact-value address-with-copy">Hertford St, Coventry CV1 1FQ<button class="copy-btn-small" onclick="copyAddress(this)" aria-label="Copy address">📋 Copy</button></div>
+
+                            <!-- Google Reviews Section -->
+                            <div class="reviews-section">
+                                <h3 class="reviews-title">What Our Customers Say</h3>
+                                <div class="rating-summary">
+                                    <div class="rating-stars">
+                                        <span class="star-icon">⭐⭐⭐⭐⭐</span>
+                                        <span class="rating-number">4.8</span>
+                                    </div>
+                                    <div class="rating-count">Based on 50+ Google Reviews</div>
+                                </div>
+                                <div class="review-highlights">
+                                    <div class="review-item">
+                                        <p class="review-text">"Absolutely amazing Thai food! The sticky chili beef is to die for. Best Thai in Coventry!"</p>
+                                        <p class="review-author">- Sarah M.</p>
+                                    </div>
+                                    <div class="review-item">
+                                        <p class="review-text">"Great vegan options and super friendly service. Will definitely be back!"</p>
+                                        <p class="review-author">- James L.</p>
+                                    </div>
+                                </div>
+                                <a href="https://www.google.com/maps/place/Thai+Grass/@52.4072249,-1.5105581,17z" class="google-reviews-link" target="_blank" rel="noopener noreferrer">
+                                    View All Google Reviews →
+                                </a>
                             </div>
-                            <div class="contact-row">
-                                <div class="contact-label">Phone</div>
-                                <div class="contact-value"><a href="tel:07860774483">07860 774483</a></div>
-                            </div>
-                            <div class="contact-row">
-                                <div class="contact-label">Hours</div>
-                                <div class="contact-value">11am – 6pm</div>
+
+                            <!-- Location Photos -->
+                            <div class="location-photos">
+                                <h3 class="location-photos-title">Visit Us</h3>
+                                <div class="location-gallery">
+                                    <div class="location-photo-item">
+                                        <img src="https://via.placeholder.com/300x200?text=Storefront" alt="Thai Grass at Tokyo Express">
+                                    </div>
+                                    <div class="location-photo-item">
+                                        <img src="https://via.placeholder.com/300x200?text=Inside" alt="Inside Tokyo Express">
+                                    </div>
+                                    <div class="location-photo-item">
+                                        <img src="https://via.placeholder.com/300x200?text=Counter" alt="Thai Grass Counter">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="contact-right">
-                        <div class="map-wrapper">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d152.1231077144269!2d-1.510558056956286!3d52.40722493526868!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48774bc8a8fb1fc3%3A0x6ea4df8b516bcd2e!2sThai%20Grass!5e0!3m2!1sen!2sus!4v1764520374337!5m2!1sen!2sus" 
-                                width="100%" 
-                                height="260" 
-                                style="border:0; border-radius: 16px;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+                        <div class="contact-right">
+                            <div class="map-wrapper" id="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d152.1231077144269!2d-1.510558056956286!3d52.40722493526868!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48774bc8a8fb1fc3%3A0x6ea4df8b516bcd2e!2sThai%20Grass!5e0!3m2!1sen!2sus!4v1764520374337!5m2!1sen!2sus" 
+                                    width="100%" 
+                                    height="100%" 
+                                    style="border:0; border-radius: 16px;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1250,10 +1505,16 @@
             <button class="cart-toggle" aria-label="Toggle cart"></button>
         </div>
         <div class="order-cart-body">
+            <input 
+                type="text" 
+                class="order-cart-name" 
+                id="cart-name" 
+                placeholder="Your name..."
+            />
             <textarea 
                 class="order-cart-note" 
                 id="cart-note" 
-                placeholder="Type your order here... e.g.,&#10;&#10;1x Thai Sticky Chili Beef&#10;1x Green Curry Chicken&#10;2x Coconut Juice&#10;&#10;Pickup time: 1pm"
+                placeholder="Add your order items here...&#10;&#10;Click 'WhatsApp Order' below to send your complete order with your name automatically!"
             ></textarea>
             <div class="order-cart-items" id="cart-items">
                 <div class="cart-empty-state">
@@ -1267,7 +1528,7 @@
         </div>
         <div class="order-cart-actions">
             <button class="cart-btn cart-btn-clear" onclick="clearCart()">Clear</button>
-            <button class="cart-btn cart-btn-copy" onclick="copyOrder()">Copy Order</button>
+            <a href="#" class="cart-btn cart-btn-whatsapp" id="cart-whatsapp-btn" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
         </div>
     </div>
 
@@ -1399,8 +1660,7 @@
                 cartItemsContainer.innerHTML = cartItems.map((item, index) => `
                     <div class="cart-item">
                         <span class="cart-item-name">${item.quantity}x ${item.name}</span>
-                        <button class="cart-item-remove" onclick="removeFromCart(${index})" aria-label="Remove item">×</button>
-                    </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${index})" aria-label="Remove item">×</div>
                 `).join('');
             }
             
@@ -1415,8 +1675,17 @@
         }
 
         function copyOrder() {
+            const nameText = document.getElementById('cart-name').value;
             const noteText = document.getElementById('cart-note').value;
-            const textToCopy = noteText || 'No order items yet';
+            let textToCopy = 'No order items yet';
+            
+            if (nameText.trim()) {
+                textToCopy = `Name: ${nameText}\n\n`;
+            }
+            
+            if (noteText.trim()) {
+                textToCopy += noteText;
+            }
             
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const copyBtn = document.querySelector('.cart-btn-copy');
@@ -1430,8 +1699,13 @@
 
         // Generate WhatsApp link with order
         function getWhatsAppLink() {
+            const nameText = document.getElementById('cart-name').value;
             const noteText = document.getElementById('cart-note').value;
             let message = 'Hi Thai Grass! I\'d like to place an order:\n\n';
+            
+            if (nameText.trim()) {
+                message += `Name: ${nameText}\n\n`;
+            }
             
             if (noteText.trim()) {
                 message += noteText;
@@ -1444,7 +1718,7 @@
 
         // Update WhatsApp button when cart changes
         function updateWhatsAppButton() {
-            const whatsappBtn = document.querySelector('.btn-whatsapp');
+            const whatsappBtn = document.querySelector('.cart-btn-whatsapp');
             if (whatsappBtn) {
                 whatsappBtn.href = getWhatsAppLink();
             }
@@ -1473,6 +1747,32 @@
 
             // Initialize WhatsApp button
             updateWhatsAppButton();
+
+            // Listen for changes in name and note fields
+            const nameInput = document.getElementById('cart-name');
+            const noteInput = document.getElementById('cart-note');
+            
+            if (nameInput) {
+                nameInput.addEventListener('input', updateWhatsAppButton);
+            }
+            
+            if (noteInput) {
+                noteInput.addEventListener('input', updateWhatsAppButton);
+            }
+
+            // Mobile map full-screen functionality
+            const mapContainer = document.getElementById('map-container');
+            if (mapContainer && window.innerWidth <= 768) {
+                mapContainer.addEventListener('click', function() {
+                    this.classList.toggle('fullscreen');
+                    // Prevent body scroll when map is fullscreen
+                    if (this.classList.contains('fullscreen')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
         });
     </script>
 </body>
