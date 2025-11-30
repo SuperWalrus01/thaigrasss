@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Grass Food Truck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #D3A428;      /* Mustard Gold - primary brand color */
+            --text-main: #B03826;     /* Brick Red - dish names / main text */
+            --text-cream: #F6F2E1;    /* Cream White - headings, prices, Chinese text */
+            --accent: #BC592C;        /* Burnt Orange - accents */
+            --logo-accent: #616635;   /* Olive Green - logo / halal accent */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #2b2b2b;
+            background: #ffffff; /* main background now white */
+        }
+
+        header {
+            text-align: center;
+            padding: 3.5rem 1.5rem 2.5rem;
+            background: var(--bg-color); /* gold header */
+            color: var(--text-cream);
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.14em;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            backdrop-filter: none; /* remove blur for performance */
+        }
+
+        nav ul {
+            list-style: none;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.16em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            padding-bottom: 0.1rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bg-color); /* gold underline */
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Section wrappers with subtle background differences */
+        .section-wrap {
+            padding-block: 3rem;
+        }
+
+        .section-wrap--alt1 {
+            background: #f7f7f2; /* very light warm grey */
+        }
+
+        .section-wrap--alt2 {
+            background: #f3f4ef; /* slightly deeper variant */
+        }
+
+        .section-wrap--alt3 {
+            background: #f5f3ea; /* third subtle tone */
+        }
+
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        section {
+            margin-bottom: 0; /* handled by section-wrap spacing now */
+        }
+
+        /* Section cards */
+        .section-card {
+            background: #faf7ef;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 2rem 1.75rem 2.25rem;
+        }
+
+        /* Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.75rem 3rem;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding-bottom: 1.1rem;
+        }
+
+        .menu-image {
+            margin-bottom: 0.6rem;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #e5e5e5;
+        }
+
+        .menu-image img {
+            display: block;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .menu-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .dish-name {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 1.05rem;
+            color: var(--text-main); /* brick red */
+        }
+
+        .price {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.14em;
+            font-size: 0.95rem;
+            color: var(--bg-color); /* cream-ish gold for prices */
+        }
+
+        .dish-cn {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .menu-note {
+            text-align: center;
+            margin-top: 2.25rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.18em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--logo-accent);
+        }
+
+        /* Accent button */
+        .btn-gold {
+            display: inline-block;
+            padding: 0.6rem 1.6rem;
+            border-radius: 999px;
+            background: var(--bg-color);
+            color: var(--text-cream);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-gold:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+        }
+
+        /* Order section */
+        .order-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step {
+            padding: 1.75rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: #ffffff;
+        }
+
+        .step-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+        }
+
+        .step h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #222;
+            margin-bottom: 0.35rem;
+        }
+
+        .step p {
+            font-size: 0.92rem;
+            color: #555;
+        }
+
+        /* Contact */
+        .contact-card {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .contact-row {
+            display: flex;
+            gap: 1rem;
+            padding-block: 0.75rem;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .contact-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .contact-label {
+            width: 90px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        .contact-value {
+            font-size: 0.96rem;
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1.5rem 3rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        footer span {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            nav ul {
+                gap: 1.25rem;
+            }
+
+            .contact-card {
+                padding-inline: 1.5rem;
+            }
+        }
+
+        /* Menu controls */
+        .menu-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.75rem;
+            align-items: center; /* Center the button rows */
+        }
+
+        .menu-toggle-row,
+        .category-toggle-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center; /* Center buttons horizontally */
+        }
+
+        .tab-btn {
+            border: 1px solid rgba(0,0,0,0.12);
+            background: #ffffff;
+            color: #333;
+            padding: 0.35rem 1.1rem;
+            border-radius: 999px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.14em;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tab-btn--primary {
+            border-color: var(--bg-color);
+        }
+
+        .tab-btn--secondary {
+            border-color: rgba(0,0,0,0.16);
+        }
+
+        .tab-btn.active {
+            background: var(--bg-color);
+            color: var(--text-cream);
+            border-color: var(--bg-color);
+        }
+
+        /* Hide/show groups */
+        .menu-group {
+            display: none;
+        }
+
+        .menu-group.active {
+            display: block;
+        }
+
+        section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: center; /* already centered within section */
+            color: #222;
+            margin-bottom: 2.25rem;
+        }
+
+        /* Make main section titles visually centered across the page, especially on mobile */
+        #menu-section-wrap h2,
+        #order-section-wrap h2,
+        #contact-section-wrap h2 {
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            #menu-section-wrap h2,
+            #order-section-wrap h2,
+            #contact-section-wrap h2 {
+                font-size: 2.6rem;
+                letter-spacing: 0.22em;
+            }
+        }
+
+        .order-steps--center {
+            justify-items: center;
+            text-align: center;
+        }
+
+        .order-steps--center .step {
+            text-align: center;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+            gap: 2rem;
+        }
+
+        .contact-card--simple {
+            box-shadow: none;
+            background: #ffffff;
+        }
+
+        .contact-value a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .map-wrapper {
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        @media (max-width: 768px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* Copy button for phone number */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            background: var(--bg-color);
+            color: var(--text-cream);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            margin-left: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: var(--logo-accent);
+            border-color: var(--logo-accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Thai Grass</h1>
+        <p>Authentic Thai Street Kitchen</p>
+        <a href="#menu" class="btn-gold">View Menu</a>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#order">How to Order</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="section-wrap section-wrap--alt1" id="menu-section-wrap">
+        <main>
+            <section id="menu">
+                <h2>Menu</h2>
+                <div class="section-card">
+                    <div class="menu-controls">
+                        <div class="menu-toggle-row">
+                            <button class="tab-btn tab-btn--primary active" data-menu-view="food">Food</button>
+                            <button class="tab-btn tab-btn--primary" data-menu-view="drinks">Drinks</button>
+                        </div>
+                        <div class="category-toggle-row" id="food-category-row">
+                            <button class="tab-btn tab-btn--secondary active" data-food-category="all">All</button>
+                            <button class="tab-btn tab-btn--secondary" data-food-category="non-vegan">Non-Vegan</button>
+                            <button class="tab-btn tab-btn--secondary" data-food-category="vegan">Vegan</button>
+                        </div>
+                    </div>
+
+                    <!-- FOOD VIEW -->
+                    <div class="menu-group active" id="food-group">
+                        <div class="menu-grid" id="food-grid">
+                            <!-- Non-vegan items -->
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Tom+Yum" alt="Tom Yum Soup Prawns with Dumpling">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Tom Yum Soup Prawns with Dumpling</div>
+                                    <div class="price">£7.00</div>
+                                </div>
+                                <div class="dish-cn">冬阴功汤 大虾饺子炒</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Green+Curry" alt="Thai Green Curry Chicken with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Green Curry Chicken with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式青咖喱鸡饭</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Red+Curry" alt="Thai Red Curry Salmon or Prawn with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Red Curry Salmon or Prawn with Rice</div>
+                                    <div class="price">£7.00</div>
+                                </div>
+                                <div class="dish-cn">泰式红咖喱 (三文鱼/对虾) 饭</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Chili+Beef" alt="Thai Sticky Chili Beef Style with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Sticky Chili Beef Style with Rice</div>
+                                    <div class="price">£6.50</div>
+                                </div>
+                                <div class="dish-cn">泰式甜辣牛肉饭</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Korean+Chicken" alt="Spicy Korean Fried Chicken with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Spicy Korean Fried Chicken with Rice</div>
+                                    <div class="price">£6.50</div>
+                                </div>
+                                <div class="dish-cn">辣韓國炸雞和米飯</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Sticky+Chicken" alt="Thai Sticky Chicken with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Sticky Chicken with Rice</div>
+                                    <div class="price">£6.50</div>
+                                </div>
+                                <div class="dish-cn">泰式甜辣鸡肉饭</div>
+                            </article>
+                            <article class="menu-item" data-category="non-vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Satay" alt="Thai Chicken Satay with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Chicken Satay with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式沙爹鸡米饭</div>
+                            </article>
+
+                            <!-- Vegan items -->
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Eggplant+Curry" alt="Eggplant Thai Green Curry with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Eggplant Thai Green Curry with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式青咖喱茄子饭</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Butternut+Curry" alt="Butternut Squash Thai Green Curry with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Butternut Squash Thai Green Curry with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式青咖喱南瓜饭</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Sweet+%26+Sour" alt="Thai Sweet and Sour Curry with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Sweet and Sour Curry with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式酸甜咖喱饭</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Tofu+Curry" alt="Thai Style Deep Fried Tofu Green Curry with Rice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Style Deep Fried Tofu Green Curry with Rice</div>
+                                    <div class="price">£5.50</div>
+                                </div>
+                                <div class="dish-cn">泰式青咖喱炸豆腐饭</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Fried+Rice" alt="Thai Fried Rice, Pineapple, Pepper Mix">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Thai Fried Rice, Pineapple, Pepper Mix</div>
+                                    <div class="price">£3.00</div>
+                                </div>
+                                <div class="dish-cn">泰式甜椒菠萝炒饭</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Seaweed+Roll" alt="Seaweed Roll with Sweet Chilli or Soya Sauce">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Seaweed Roll with Sweet Chilli or Soya Sauce</div>
+                                    <div class="price">£2.50</div>
+                                </div>
+                                <div class="dish-cn">泰式炸紫菜卷配甜辣酱或酱油</div>
+                            </article>
+                            <article class="menu-item" data-category="vegan">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Guo+Bao+Jackfruit" alt="Guo Bao Jackfruit">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Guo Bao Jackfruit</div>
+                                    <div class="price">£3.00</div>
+                                </div>
+                                <div class="dish-cn">瓜寶波羅蜜</div>
+                            </article>
+                        </div>
+                        <p class="menu-note">Vegan options also available</p>
+                    </div>
+
+                    <!-- DRINKS VIEW -->
+                    <div class="menu-group" id="drinks-group">
+                        <div class="menu-grid">
+                            <article class="menu-item">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Coconut+Juice" alt="Coconut Juice">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Coconut Juice</div>
+                                    <div class="price">£2.00</div>
+                                </div>
+                                <div class="dish-cn">椰汁</div>
+                            </article>
+                            <article class="menu-item">
+                                <div class="menu-image">
+                                    <img src="https://via.placeholder.com/400x250?text=Soft+Drinks" alt="Soft Drinks">
+                                </div>
+                                <div class="menu-line">
+                                    <div class="dish-name">Soft Drinks</div>
+                                    <div class="price">£1.00</div>
+                                </div>
+                                <div class="dish-cn">软饮</div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="section-wrap section-wrap--alt2" id="order-section-wrap">
+        <main>
+            <section id="order">
+                <h2>How to Order</h2>
+                <div class="section-card">
+                    <div class="order-steps order-steps--center">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Call to Order</h3>
+                            <p>Give us a call on <strong>07860 774483</strong><button class="copy-btn" onclick="copyPhoneNumber(this)" aria-label="Copy phone number">📋 Copy</button> and tell us your name, what you'd like to order, and roughly what time you'd like to pick it up.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>We Prepare Your Food</h3>
+                            <p>We’ll confirm your order over the phone and start cooking so it’s hot and ready close to your chosen time.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Pick Up at Tokyo Express</h3>
+                            <p>Come to <strong>Tokyo Express, Hertford St, Coventry CV1 1FQ</strong>, give us your name, and pick up your order.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h3>Pay & Enjoy</h3>
+                            <p>Pay on collection (card or cash) and enjoy your Thai Grass meal.</p>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin-top:2rem;">
+                        <a href="tel:07860774483" class="btn-gold">Call to Order</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="section-wrap section-wrap--alt3" id="contact-section-wrap">
+        <main>
+            <section id="contact">
+                <h2>Contact</h2>
+                <div class="section-card contact-layout">
+                    <div class="contact-left">
+                        <div class="contact-card contact-card--simple">
+                            <div class="contact-row">
+                                <div class="contact-label">Located In</div>
+                                <div class="contact-value">Tokyo Express</div>
+                            </div>
+                            <div class="contact-row">
+                                <div class="contact-label">Address</div>
+                                <div class="contact-value">Hertford St, Coventry CV1 1FQ</div>
+                            </div>
+                            <div class="contact-row">
+                                <div class="contact-label">Phone</div>
+                                <div class="contact-value"><a href="tel:07860774483">07860 774483</a></div>
+                            </div>
+                            <div class="contact-row">
+                                <div class="contact-label">Hours</div>
+                                <div class="contact-value">11am – 6pm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-right">
+                        <div class="map-wrapper">
+                            <iframe
+                                src="https://www.google.com/maps?q=Tokyo+Express+Hertford+St+Coventry+CV1+1FQ&output=embed"
+                                width="100%"
+                                height="260"
+                                style="border:0; border-radius: 16px;"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <span>Thai Grass</span>
+        <div>© 2025 Thai Grass. All rights reserved.</div>
+    </footer>
+
+    <script>
+        // Simple toggle logic for Food/Drinks and Vegan/Non-Vegan
+        (function() {
+            const foodGroup = document.getElementById('food-group');
+            const drinksGroup = document.getElementById('drinks-group');
+            const menuViewButtons = document.querySelectorAll('[data-menu-view]');
+            const foodCategoryButtons = document.querySelectorAll('[data-food-category]');
+            const foodItems = document.querySelectorAll('#food-grid .menu-item');
+
+            function setMenuView(view) {
+                if (view === 'food') {
+                    foodGroup.classList.add('active');
+                    drinksGroup.classList.remove('active');
+                    document.getElementById('food-category-row').style.display = 'flex';
+                } else {
+                    foodGroup.classList.remove('active');
+                    drinksGroup.classList.add('active');
+                    document.getElementById('food-category-row').style.display = 'none';
+                }
+
+                menuViewButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.menuView === view);
+                });
+            }
+
+            function setFoodCategory(category) {
+                foodItems.forEach(item => {
+                    const itemCat = item.dataset.category;
+                    const show = category === 'all' || category === itemCat;
+                    item.style.display = show ? '' : 'none';
+                });
+
+                foodCategoryButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.foodCategory === category);
+                });
+            }
+
+            menuViewButtons.forEach(btn => {
+                btn.addEventListener('click', () => setMenuView(btn.dataset.menuView));
+            });
+
+            foodCategoryButtons.forEach(btn => {
+                btn.addEventListener('click', () => setFoodCategory(btn.dataset.foodCategory));
+            });
+
+            // Default: Food view, all categories
+            setMenuView('food');
+            setFoodCategory('all');
+        })();
+
+        // Copy phone number to clipboard
+        function copyPhoneNumber(button) {
+            const phoneNumber = "07860 774483";
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+                button.classList.add('copied');
+                setTimeout(() => button.classList.remove('copied'), 2000);
+            });
+        }
+    </script>
+</body>
+</html>
