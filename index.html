@@ -963,6 +963,48 @@
             opacity: 1; /* Always visible */
         }
 
+        /* Toast Notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--logo-accent);
+            color: var(--text-cream);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.1em;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .toast-notification {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                justify-content: center;
+            }
+        }
+
         /* Reviews Section */
         .reviews-section {
             margin-top: 2rem;
@@ -1537,6 +1579,12 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message">Added to order notes!</span>
+    </div>
+
     <script>
         // Simple toggle logic for Food/Drinks and Vegan/Non-Vegan
         (function() {
@@ -1613,6 +1661,21 @@
             cart.classList.toggle('minimized');
         }
 
+        function showToast(message = 'Added to order notes!') {
+            const toast = document.getElementById('toast-notification');
+            const messageEl = toast.querySelector('.toast-message');
+            
+            if (messageEl) {
+                messageEl.textContent = message;
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
         function addToCart(dishName, price) {
             // Check if item already exists in cart
             const existingItem = cartItems.find(item => item.name === dishName);
@@ -1626,6 +1689,9 @@
             updateCartDisplay();
             updateTextarea();
             updateWhatsAppButton();
+            
+            // Show notification
+            showToast();
         }
 
         function removeFromCart(index) {
