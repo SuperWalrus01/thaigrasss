@@ -36,6 +36,41 @@
             padding: 3.5rem 1.5rem 2.5rem;
             background: var(--bg-color); /* gold header */
             color: var(--text-cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 40px,
+                    var(--text-main) 40px,
+                    var(--text-main) 42px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 40px,
+                    var(--text-main) 40px,
+                    var(--text-main) 42px
+                );
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        header h1,
+        header p,
+        header .btn-gold {
+            position: relative;
+            z-index: 1;
         }
 
         header h1 {
@@ -1285,41 +1320,6 @@
                             </article>
                             <article class="menu-item" data-category="vegan">
                                 <div class="menu-image">
-                                    <img src="https://via.placeholder.com/400x250?text=Sweet+%26+Sour" alt="Thai Sweet and Sour Curry with Rice">
-                                </div>
-                                <div class="menu-line">
-                                    <div class="dish-name">Thai Sweet and Sour Curry with Rice</div>
-                                    <div class="price">£5.50</div>
-                                </div>
-                                <div class="dish-cn">泰式酸甜咖喱饭</div>
-                            </article>
-                            <article class="menu-item" data-category="vegan">
-                                <div class="menu-image">
-                                    <img src="https://via.placeholder.com/400x250?text=Tofu+Curry" alt="Thai Style Deep Fried Tofu Green Curry with Rice">
-                                </div>
-                                <div class="menu-line">
-                                    <div class="dish-name">Thai Style Deep Fried Tofu Green Curry with Rice</div>
-                                    <div class="price">£5.50</div>
-                                </div>
-                                <div class="dish-cn">泰式青咖喱炸豆腐饭</div>
-                            </article>
-                            <article class="menu-item" data-category="vegan">
-                                <div class="menu-image">
-                                    <img src="https://via.placeholder.com/400x250?text=Fried+Rice" alt="Thai Fried Rice, Pineapple, Pepper Mix">
-                                </div>
-                                <div class="menu-line">
-                                    <div class="dish-name">Thai Fried Rice, Pineapple, Pepper Mix</div>
-                                    <div class="price">£3.00</div>
-                                </div>
-                                <div class="dish-cn">泰式甜椒菠萝炒饭</div>
-                            </article>
-                            <article class="menu-item" data-category="vegan">
-                                <div class="menu-image">
-                                    <img src="https://via.placeholder.com/400x250?text=Seaweed+Roll" alt="Seaweed Roll with Sweet Chilli or Soya Sauce">
-                                </div>
-                                <div class="menu-line">
-                                    <div class="dish-name">Seaweed Roll with Sweet Chilli or Soya Sauce</div>
-                                    <div class="price">£2.50</div>
                                 </div>
                                 <div class="dish-cn">泰式炸紫菜卷配甜辣酱或酱油</div>
                             </article>
